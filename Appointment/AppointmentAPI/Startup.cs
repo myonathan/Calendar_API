@@ -1,5 +1,7 @@
 ﻿using AppointmentAPI.MiddleWare.RateLimitMiddleWare;
 using AspNetCoreRateLimit;
+using IdentityModel;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using StackExchange.Redis.Extensions.Core.Configuration;
 using StackExchange.Redis.Extensions.Newtonsoft;
+using System;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace AppointmentAPI
 {
@@ -38,6 +42,28 @@ namespace AppointmentAPI
             });
 
             #endregion
+
+            #region jwt (not used)
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            services.AddAuthentication(o =>
+            {
+                o.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                o.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = Configuration.GetSection("IdentityServer").GetSection("Authority").Value;
+                    options.RequireHttpsMetadata = Convert.ToBoolean(Configuration.GetSection("IdentityServer")
+                        .GetSection("RequireHttpsMetadata").Value);
+                    options.ApiSecret = Configuration.GetSection("IdentityServer").GetSection("ApiSecret").Value;
+                    options.ApiName = Configuration.GetSection("IdentityServer").GetSection("ApiName").Value;
+                    // options.ClaimsIssuer=Configuration.GetSection("IdentityServer").GetSection("Authority").Value;
+                    options.RoleClaimType = JwtClaimTypes.Role;
+                    options.NameClaimType = JwtClaimTypes.Name;
+                });
+
+            #endregion 
 
             #region request limit, Note: This depends on redis 
             services.AddOptions();
