@@ -1,0 +1,22 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Koobits-Services/.vs
+/Koobits-Services/UserAPI/bin
+/Koobits-Services/UserAPI/obj
+/Koobits-Services/StudentAPI/bin
+/Koobits-Services/StudentAPI/obj
+/Koobits-Services/.vs
+/.vs
+/.gitmodules
+/Koobits-Services/StudentAPI/Properties/PublishProfiles/FolderProfile.pubxml.user
+/Koobits-Services/StudentAPI/Properties/PublishProfiles/FolderProfile.pubxml
+.DS_Store
+.idea
+
+.vscode
+logs
+bin
+obj
+*log*.json
