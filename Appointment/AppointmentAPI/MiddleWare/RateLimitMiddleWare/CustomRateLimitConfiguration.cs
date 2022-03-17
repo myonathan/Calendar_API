@@ -14,7 +14,7 @@ namespace AppointmentAPI.MiddleWare.RateLimitMiddleWare
         public override void RegisterResolvers()
         {
             base.RegisterResolvers();
-            ClientResolvers.Add(new ClientPostBodyResolveContributor(RateLimitEnum.BodyParam));
+            ClientResolvers.Add(new ClientPostBodyResolveContributor(ConstantRate.BodyParam));
         }
 
     }

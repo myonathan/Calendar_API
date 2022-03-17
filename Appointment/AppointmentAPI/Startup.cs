@@ -45,7 +45,8 @@ namespace AppointmentAPI
             //  appsettings.json IpRateLimiting  
             services.Configure<ClientRateLimitOptions>(Configuration.GetSection("ClientRateLimiting"));
 
-            //  appsettings.json  Ip Rule
+            //  appsettings.json  Ip Rule, for service invocation through client 
+            //  example: https://github.com/stefanprodan/AspNetCoreRateLimit/blob/master/test/AspNetCoreRateLimit.Demo/Controllers/ClientRateLimitController.cs
             services.Configure<ClientRateLimitPolicies>(Configuration.GetSection("ClientRateLimitPolicies"));
 
             services.AddDistributedRateLimiting();
@@ -71,10 +72,21 @@ namespace AppointmentAPI
 
             app.UseAuthorization();
 
+            #region client rate limit 
+            app.UseMiddleware<CustomUserClientRateLimitMiddleware>();
+            #endregion 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            // https://chowdera.com/2021/07/20210704225021776h.html
+
+            #region limit activation 
+            app.UseClientRateLimiting();
+
+            #endregion
         }
     }
 }

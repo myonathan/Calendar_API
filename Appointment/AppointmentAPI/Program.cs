@@ -15,7 +15,7 @@ using Serilog.Events;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.SystemConsole.Themes;
 
-namespace StudentAPI
+namespace AppointmentAPI
 {
     public class Program
     {
@@ -54,8 +54,6 @@ namespace StudentAPI
             {
                 Log.CloseAndFlush();
             }
-
-
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

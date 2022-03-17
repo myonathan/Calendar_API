@@ -61,7 +61,7 @@ namespace AppointmentAPI.MiddleWare.RateLimitMiddleWare
             var path = httpContext.Request.Path.ToString().ToLowerInvariant();
 
             string userId = "";
-            var userIdClaimFromToken = httpContext.Request.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == RateLimitEnum.UserClaimType);
+            var userIdClaimFromToken = httpContext.Request.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == ConstantRate.UserClaimType);
             if (userIdClaimFromToken != null)
             {
                 userId = userIdClaimFromToken.Value;

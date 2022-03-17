@@ -2,7 +2,7 @@ using AspNetCoreRateLimit;
 
 namespace AppointmentAPI.MiddleWare.RateLimitMiddleWare
 {
-    public class CustomClientCounterKeyBuilder: ICounterKeyBuilder
+    public class CustomClientCounterKeyBuilder : ICounterKeyBuilder
     {
         private readonly ClientRateLimitOptions _options;
 
@@ -13,17 +13,9 @@ namespace AppointmentAPI.MiddleWare.RateLimitMiddleWare
 
         public string Build(ClientRequestIdentity requestIdentity, RateLimitRule rule)
         {
-            var defaultKey = $"{_options.RateLimitCounterPrefix}_{requestIdentity.ClientId}_{rule.Period}";
-            var customRequestIdentity = (CustomClientRequestIdentity)requestIdentity;
-            if (!string.IsNullOrEmpty(customRequestIdentity.UserId))
-            {
-                var userKey = $"{defaultKey}_{customRequestIdentity.UserId}";
-                return userKey;
-            }
-            else
-            {
-                return defaultKey;
-            }
+            // note: we don't use identity server, so currently a constant value
+            var defaultKey = $"{_options.RateLimitCounterPrefix}_{ConstantRate.ClientId}_{rule.Period}";
+            return defaultKey;
         }
     }
 }

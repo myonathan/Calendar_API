@@ -19,15 +19,14 @@ namespace AppointmentAPI.MiddleWare.RateLimitMiddleWare
 
         public Task<string> ResolveClientAsync(HttpContext httpContext)
         {
-            var userIdClaimFromToken = httpContext.Request.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == RateLimitEnum.UserClaimType);
+            var userIdClaimFromToken = httpContext.Request.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == ConstantRate.UserClaimType);
             if (userIdClaimFromToken == null)
             {
                 return Task.FromResult("");
             }
-            //TODO:check if userid valid?
 
-            //TODO:resolve request to certain client when it contain userid,shouldn't hard code this, but can work for now
-            return Task.FromResult(RateLimitEnum.ClientId);
+            //TODO: (We don't use Identity server id) check if userid valid, resolve request to certain client when it contain userid,shouldn't hard code this, but can work for now 
+            return Task.FromResult(ConstantRate.ClientId);
         }
     }
 }
