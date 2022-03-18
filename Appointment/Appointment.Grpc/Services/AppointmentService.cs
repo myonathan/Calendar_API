@@ -62,7 +62,7 @@ namespace Appointment.Grpc
             }
         }
 
-        public override async Task<global::Appointment.Grpc.AppointmentResponse> AddAppointment(.AppointmentRequest request, ServerCallContext context)
+        public override async Task<global::Appointment.Grpc.AppointmentResponse> AddAppointment(AppointmentRequest request, ServerCallContext context)
         {
             try
             {
