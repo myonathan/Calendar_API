@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AppointmentAPI.Controllers
 {
-    public class AppointmentController
+    public class AppointmentController : ExtendedApiController
     {
     }
 }
