@@ -6,9 +6,9 @@ using Serilog;
 using Microsoft.Extensions.Logging;
 using Appointment.Resources;
 using Appointment.Utilities;
-using AppointmentAPI.App_Start;
+using Appointment.Infrastructure.App_Start;
 
-namespace AppointmentAPI.Controllers
+namespace Appointment.Infrastructure.Controllers
 {
     public class ExtendedApiController : ControllerBase
     {

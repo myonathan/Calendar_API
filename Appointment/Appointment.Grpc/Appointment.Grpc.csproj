@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Protos\appointment.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\appointment.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreRateLimit" Version="4.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.27.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.1.23" />
+    <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" Version="7.0.1" />
+    <PackageReference Include="StackExchange.Redis.Extensions.Newtonsoft" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Appointment.DataAccess\Appointment.DataAccess.csproj" />
+    <ProjectReference Include="..\Appointment.Domain\Appointment.Domain.csproj" />
+    <ProjectReference Include="..\Appointment.Infrastructure\Appointment.Infrastructure.csproj" />
+    <ProjectReference Include="..\Appointment.Service\Appointment.Service.csproj" />
+    <ProjectReference Include="..\Appointment.Utility\Appointment.Common.csproj" />
+  </ItemGroup>
+
+</Project>

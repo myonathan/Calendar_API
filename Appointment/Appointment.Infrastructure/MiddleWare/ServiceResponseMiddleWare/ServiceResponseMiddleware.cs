@@ -3,8 +3,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using AppointmentAPI.MiddleWare.ServiceResponseMiddleWare.Extension;
-using AppointmentAPI.MiddleWare.ServiceResponseMiddleWare.wrappers;
+using Appointment.Infrastructure.MiddleWare.ServiceResponseMiddleWare.Extension;
+using Appointment.Infrastructure.MiddleWare.ServiceResponseMiddleWare.wrappers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using Appointment.Utilities;
 using Appointment.Resources;
 
-namespace AppointmentAPI.MiddleWare.ServiceResponseMiddleWare
+namespace Appointment.Infrastructure.MiddleWare.ServiceResponseMiddleWare
 {
     public class ServiceResponseMiddleware
     {

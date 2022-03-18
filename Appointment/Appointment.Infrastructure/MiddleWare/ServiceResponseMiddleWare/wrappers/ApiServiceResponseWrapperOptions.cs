@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AppointmentAPI.MiddleWare.ServiceResponseMiddleWare.wrappers
+namespace Appointment.Infrastructure.MiddleWare.ServiceResponseMiddleWare.wrappers
 {
     public class ApiServiceResponseWrapperOptions
     {

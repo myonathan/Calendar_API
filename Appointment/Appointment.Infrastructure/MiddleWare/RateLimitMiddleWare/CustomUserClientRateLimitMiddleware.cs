@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 
-namespace AppointmentAPI.MiddleWare.RateLimitMiddleWare
+namespace Appointment.Infrastructure.MiddleWare.RateLimitMiddleWare
 {
     public class CustomUserClientRateLimitMiddleware : RateLimitMiddleware<ClientRateLimitProcessor>
     {

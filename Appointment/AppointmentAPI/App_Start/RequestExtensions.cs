@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace AppointmentAPI.App_Start
+namespace Appointment.Infrastructure.App_Start
 {
     public static class RequestExtensions
     {

@@ -1,7 +1,7 @@
 using AspNetCoreRateLimit;
 using Microsoft.Extensions.Options;
 
-namespace AppointmentAPI.MiddleWare.RateLimitMiddleWare
+namespace Appointment.Infrastructure.MiddleWare.RateLimitMiddleWare
 {
     public class CustomRateLimitConfiguration : RateLimitConfiguration
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using AppointmentAPI;
+using Appointment.Infrastructure;
 using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +15,7 @@ using Serilog.Events;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.SystemConsole.Themes;
 
-namespace AppointmentAPI
+namespace Appointment.Infrastructure
 {
     public class Program
     {

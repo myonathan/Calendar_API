@@ -1,22 +1,22 @@
-﻿using Appointment.Infrastructure.MiddleWare.RateLimitMiddleWare;
+﻿using Appointment.Domain.ConverterMapperConfigs;
+using Appointment.Domain.DependencyInjection;
+using Appointment.Domain.Model;
+using Appointment.Grpc.Converters;
+using Appointment.Infrastructure.MiddleWare.RateLimitMiddleWare;
 using AspNetCoreRateLimit;
-using IdentityModel;
-using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Logging;
+using Nelibur.ObjectMapper;
 using StackExchange.Redis.Extensions.Core.Configuration;
 using StackExchange.Redis.Extensions.Newtonsoft;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using Appointment.Domain.DependencyInjection;
-using Microsoft.OpenApi.Models;
-using Appointment.Domain.ConverterMapperConfigs;
+using System.Collections.Generic;
+using System.ComponentModel;
 
-namespace Appointment.Infrastructure
+namespace Appointment.Grpc
 {
     public class Startup
     {
@@ -28,8 +28,11 @@ namespace Appointment.Infrastructure
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddGrpc();
+
             #region memory cache 
             services.AddMemoryCache();
             #endregion 
@@ -58,28 +61,6 @@ namespace Appointment.Infrastructure
             services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfiguration);
             #endregion
 
-            #region jwt (not used)
-
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            services.AddAuthentication(o =>
-            {
-                o.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                o.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-            })
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.Authority = Configuration.GetSection("IdentityServer").GetSection("Authority").Value;
-                    options.RequireHttpsMetadata = Convert.ToBoolean(Configuration.GetSection("IdentityServer")
-                        .GetSection("RequireHttpsMetadata").Value);
-                    options.ApiSecret = Configuration.GetSection("IdentityServer").GetSection("ApiSecret").Value;
-                    options.ApiName = Configuration.GetSection("IdentityServer").GetSection("ApiName").Value;
-                    // options.ClaimsIssuer=Configuration.GetSection("IdentityServer").GetSection("Authority").Value;
-                    options.RoleClaimType = JwtClaimTypes.Role;
-                    options.NameClaimType = JwtClaimTypes.Name;
-                });
-
-            #endregion 
-
             #region request limit, Note: This depends on redis 
             services.AddOptions();
 
@@ -96,21 +77,16 @@ namespace Appointment.Infrastructure
             services.AddSingleton<IRateLimitConfiguration, CustomRateLimitConfiguration>();
             #endregion
 
-            #region swagger
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "AppointmentAPI",
-                    Version = "v1"
-                });
-            });
-
-            #endregion
-
             #region mapper
             AppointmentMapperConfig.InitateMapper();
+            // extra
+            TypeDescriptor.AddAttributes(typeof(ToAppointmentModel), new TypeConverterAttribute(typeof(ToAppoinmentResponse)));
+            TinyMapper.Bind<AppointmentModel, AppointmentResponse>();
+
+            TypeDescriptor.AddAttributes(typeof(AppointmentRequest), new TypeConverterAttribute(typeof(ToAppointmentModel)));
+            TinyMapper.Bind<AppointmentRequest, AppointmentModel>();
+
+            TinyMapper.Bind<List<AppointmentModel>, List<AppointmentResponse>>();
             #endregion
         }
 
@@ -119,39 +95,20 @@ namespace Appointment.Infrastructure
         {
             if (env.IsDevelopment())
             {
-                IdentityModelEventSource.ShowPII = true;
-
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint(Configuration.GetValue<string>("VirtualDirectory") + "/swagger/v1/swagger.json",
-                    "AppointmentAPI");
-            });
-
             app.UseRouting();
-
-            app.UseAuthorization();
-
-            #region client rate limit 
-            app.UseMiddleware<CustomUserClientRateLimitMiddleware>();
-            #endregion 
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapGrpcService<AppointmentService>();
+
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+                });
             });
-
-            // https://chowdera.com/2021/07/20210704225021776h.html
-
-            #region limit activation 
-            app.UseClientRateLimiting();
-
-            #endregion
         }
     }
 }

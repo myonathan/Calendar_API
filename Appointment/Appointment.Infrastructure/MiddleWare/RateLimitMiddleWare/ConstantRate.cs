@@ -1,4 +1,4 @@
-namespace AppointmentAPI.MiddleWare.RateLimitMiddleWare
+namespace Appointment.Infrastructure.MiddleWare.RateLimitMiddleWare
 {
     public static class ConstantRate
     {

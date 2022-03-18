@@ -6,7 +6,7 @@ using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Linq;
 
-namespace AppointmentAPI.MiddleWare.RateLimitMiddleWare
+namespace Appointment.Infrastructure.MiddleWare.RateLimitMiddleWare
 {
   public class ClientPostBodyResolveContributor : IClientResolveContributor
     {

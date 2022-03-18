@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AppointmentAPI.Controllers
+namespace Appointment.Infrastructure.Controllers
 {
     [ApiController]
     [Route("[controller]")]

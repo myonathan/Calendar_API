@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using AppointmentAPI.MiddleWare.ServiceResponseMiddleWare.wrappers;
+using Appointment.Infrastructure.MiddleWare.ServiceResponseMiddleWare.wrappers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Linq;
 using Appointment.Utilities;
 
-namespace AppointmentAPI.MiddleWare.ServiceResponseMiddleWare.Extension
+namespace Appointment.Infrastructure.MiddleWare.ServiceResponseMiddleWare.Extension
 {
     public static class ServiceResponseMiddleWareExtension
     {
