@@ -12,8 +12,9 @@ using StackExchange.Redis.Extensions.Core.Configuration;
 using StackExchange.Redis.Extensions.Newtonsoft;
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using Appointment.Service.DependencyInjection;
+using Appointment.Domain.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Appointment.Domain.ConverterMapperConfigs;
 
 namespace AppointmentAPI
 {
@@ -97,7 +98,8 @@ namespace AppointmentAPI
 
             #region swagger
 
-            services.AddSwaggerGen(c => {
+            services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "AppointmentAPI",
@@ -105,6 +107,10 @@ namespace AppointmentAPI
                 });
             });
 
+            #endregion
+
+            #region mapper
+            AppointmentMapperConfig.InitateMapper();
             #endregion
         }
 

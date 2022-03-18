@@ -70,17 +70,20 @@ namespace Appointment.Service
 
             // if start date & end date fall between existing data within range then throw exceptin 
             var entities = _appointmentMainRepo.GetNoTrackingQueryable().Where(x =>
-                    x.StartDate >= appointment.StartDate
-                     && x.EndDate <= appointment.StartDate
-                     && x.StartDate >= appointment.EndDate
-                     && x.EndDate <= appointment.EndDate
+                    (appointment.StartDate >= x.StartDate
+                     && appointment.StartDate <= x.EndDate) 
+                                    ||
+                     (appointment.EndDate >= x.StartDate
+                     && appointment.EndDate <= x.EndDate)
             ).ToList();
 
             if (entities.Any())
                 throw new ExpectedException(nameof(Constants.Appointment.APP02), 
-                    string.Format(Constants.Appointment.APP02, string.Join(System.Environment.NewLine, entities.Select(x => x.Name))));
+                    string.Format(Constants.Appointment.APP02, "Your Appointment" + appointment.StartDate.ToUniversalTime() + " " + appointment.EndDate.ToUniversalTime() + "\n"  + string.Join(System.Environment.NewLine, entities.Select(x => (x.Name + " " + x.StartDate.ToUniversalTime().ToString("s") + " " + x.EndDate.ToUniversalTime().ToString("s"))))));
 
             var entity = TinyMapper.Map<AppointmentModel, AppointmentEntity>(appointment);
+            entity.CreateBy = -1;
+            entity.CreateDate = DateTime.Now;
 
             _appointmentMainRepo.Add(entity);
             _appointmentMainRepo.Save();

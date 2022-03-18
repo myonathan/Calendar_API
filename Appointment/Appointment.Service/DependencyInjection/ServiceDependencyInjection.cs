@@ -1,6 +1,7 @@
 ﻿using Appointment.DataAccess.MSSQL;
 using Appointment.Domain.MainRepo;
 using Appointment.Domain.User.UserAuth;
+using Appointment.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Appointment.Service.DependencyInjection
+namespace Appointment.Domain.DependencyInjection
 {
     public static class ServiceDependencyInjection
     {
