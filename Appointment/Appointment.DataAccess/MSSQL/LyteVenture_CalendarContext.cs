@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Appointment.DataAccess.Model;
+using Appointment.DataAccess.Entity;
 
 #nullable disable
 
@@ -18,7 +18,7 @@ namespace Appointment.DataAccess.MSSQL
         {
         }
 
-        public virtual DbSet<Model.Appointment> Appointments { get; set; }
+        public virtual DbSet<Entity.Appointment> Appointments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
