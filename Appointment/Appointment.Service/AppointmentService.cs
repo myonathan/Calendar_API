@@ -79,7 +79,9 @@ namespace Appointment.Service
 
             if (entities.Any())
                 throw new ExpectedException(nameof(Constants.Appointment.APP02), 
-                    string.Format(Constants.Appointment.APP02, "Your Appointment" + appointment.StartDate.ToUniversalTime() + " " + appointment.EndDate.ToUniversalTime() + "\n"  + string.Join(System.Environment.NewLine, entities.Select(x => (x.Name + " " + x.StartDate.ToUniversalTime().ToString("s") + " " + x.EndDate.ToUniversalTime().ToString("s"))))));
+                    string.Format(Constants.Appointment.APP02, 
+                    "Your Appointment" + appointment.StartDate.ToUniversalTime() + " " + appointment.EndDate.ToUniversalTime() + "\n"  + string.Join(System.Environment.NewLine, 
+                    entities.Select(x => (x.Name + " " + x.StartDate.ToUniversalTime().ToString("s") + " " + x.EndDate.ToUniversalTime().ToString("s"))))));
 
             var entity = TinyMapper.Map<AppointmentModel, AppointmentEntity>(appointment);
             entity.CreateBy = -1;
