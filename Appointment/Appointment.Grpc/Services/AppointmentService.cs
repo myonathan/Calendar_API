@@ -44,5 +44,54 @@ namespace Appointment.Grpc
                 throw new RpcException(Status.DefaultCancelled, e.Message);
             }
         }
+
+        public override async Task<DeleteResponse> DeleteAppointment(AppointmentRequest request, ServerCallContext context)
+        {
+            try
+            {
+                var appointmentModel = TinyMapper.Map<AppointmentRequest, AppointmentModel>(request);
+                var result = _appointmentService.DeleteAppointment(appointmentModel);
+               
+                var deleteResponse = new DeleteResponse();
+                deleteResponse.Result = result;
+                return await Task.FromResult(deleteResponse);
+            }
+            catch (Exception e)
+            {
+                throw new RpcException(Status.DefaultCancelled, e.Message);
+            }
+        }
+
+        public override async Task<global::Appointment.Grpc.AppointmentResponse> AddAppointment(.AppointmentRequest request, ServerCallContext context)
+        {
+            try
+            {
+                var appointmentModel = TinyMapper.Map<AppointmentRequest, AppointmentModel>(request);
+
+                var result = _appointmentService.AddAppointment(appointmentModel);
+
+                return await Task.FromResult(TinyMapper.Map<AppointmentModel, AppointmentResponse>(result));
+            }
+            catch (Exception e)
+            {
+                throw new RpcException(Status.DefaultCancelled, e.Message);
+            }
+        }
+
+        public override async Task<AppointmentResponse> UpdateAppointment(AppointmentRequest request, ServerCallContext context)
+        {
+            try
+            {
+                var appointmentModel = TinyMapper.Map<AppointmentRequest, AppointmentModel>(request);
+
+                var result = _appointmentService.UpdateAppointment(appointmentModel);
+
+                return await Task.FromResult(TinyMapper.Map<AppointmentModel, AppointmentResponse>(result));
+            }
+            catch (Exception e)
+            {
+                throw new RpcException(Status.DefaultCancelled, e.Message);
+            }
+        }
     }
 }
