@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Koobits.Service
+namespace Appointment.Infrastructure
 {
     public static class RedisCacheClientExtensions
     {
