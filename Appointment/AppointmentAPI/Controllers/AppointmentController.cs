@@ -22,12 +22,12 @@ namespace AppointmentAPI.Controllers
         }
 
         [HttpGet]
-        [Route("GetAppointments")]
-        public ServiceResponse<List<AppointmentModel>> GetAppointments()
+        [Route("GetAppointments/{startDate}/{endDate}")]
+        public async Task<ServiceResponse<List<AppointmentModel>>> GetAppointments(DateTime startDate, DateTime endDate)
         {
-           return Run(() =>
+           return await Run(async () =>
            {
-               return new List<AppointmentModel>();
+               return await _appointmentService.GetAppointments(startDate, endDate);
            });
         }
 
@@ -37,7 +37,7 @@ namespace AppointmentAPI.Controllers
         {
             return Run(() =>
             {
-                return new AppointmentModel();
+                return  _appointmentService.AddAppointment(model);
             });
         }
 
@@ -47,17 +47,17 @@ namespace AppointmentAPI.Controllers
         {
             return Run(() =>
             {
-                return new AppointmentModel();
+                return _appointmentService.UpdateAppointment(model);
             });
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("DeleteAppointment")]
-        public ServiceResponse<AppointmentModel> DeleteAppointment([FromBody] AppointmentModel model)
+        public ServiceResponse DeleteAppointment([FromBody] AppointmentModel model)
         {
             return Run(() =>
             {
-                return new AppointmentModel();
+                return _appointmentService.DeleteAppointment(model);
             });
         }
     }

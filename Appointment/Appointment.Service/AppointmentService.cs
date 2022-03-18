@@ -35,6 +35,9 @@ namespace Appointment.Service
 
         public async Task<List<AppointmentModel>> GetAppointments(DateTime start, DateTime end)
         {
+            if (start >= end)
+                throw new ExpectedException(nameof(Constants.Appointment.APP04), Constants.Appointment.APP04);
+
             // any start dates that match with the start & end, cached 5 minutes 
             List<AppointmentEntity> entities = await _cacheService.Db0.GetValueFromCache<List<AppointmentEntity>>(string.Format(CacheKeys.Appointment.StaticAppointmentStartEndDate, start.Date.ToString("dd/MM/yyyy"), end.Date.ToString("dd/MM/yyyy"))
              , () =>{ return _appointmentMainRepo.GetNoTrackingQueryable().Where(x => x.StartDate.Date >= start.Date && x.StartDate.Date <= end.Date).ToList(); }
