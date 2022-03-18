@@ -13,6 +13,7 @@ using StackExchange.Redis.Extensions.Newtonsoft;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using Appointment.Service.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
 namespace AppointmentAPI
 {
@@ -32,9 +33,16 @@ namespace AppointmentAPI
             services.AddMemoryCache();
             #endregion 
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(opt =>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                opt.UseMemberCasing();
+            }).AddJsonOptions(x => x.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+            services.AddHttpContextAccessor();
 
             #region dependency injection
+
             services.AddServiceExtension(Configuration);
             #endregion
 
@@ -46,6 +54,7 @@ namespace AppointmentAPI
                 options.ConfigurationOptions = redisConfiguration.ConfigurationOptions;
             });
 
+            services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfiguration);
             #endregion
 
             #region jwt (not used)
@@ -85,6 +94,18 @@ namespace AppointmentAPI
             services.AddSingleton<IRateLimitCounterStore, DistributedCacheRateLimitCounterStore>();
             services.AddSingleton<IRateLimitConfiguration, CustomRateLimitConfiguration>();
             #endregion
+
+            #region swagger
+
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "AppointmentAPI",
+                    Version = "v1"
+                });
+            });
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +119,13 @@ namespace AppointmentAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint(Configuration.GetValue<string>("VirtualDirectory") + "/swagger/v1/swagger.json",
+                    "AppointmentAPI");
+            });
 
             app.UseRouting();
 

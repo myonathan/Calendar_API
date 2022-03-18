@@ -1,6 +1,6 @@
 ﻿using Appointment.DataAccess.Core.Repository;
 using Appointment.DataAccess.MSSQL;
-using Koobits.Domain.KoobitsUser.UserAuth;
+using Appointment.Domain.KoobitsUser.UserAuth;
 using System;
 using System.Collections.Generic;
 using System.Text;

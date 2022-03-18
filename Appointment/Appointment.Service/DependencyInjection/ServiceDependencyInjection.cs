@@ -1,6 +1,6 @@
 ﻿using Appointment.DataAccess.MSSQL;
 using Appointment.Domain.MainRepo;
-using Koobits.Domain.KoobitsUser.UserAuth;
+using Appointment.Domain.KoobitsUser.UserAuth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
