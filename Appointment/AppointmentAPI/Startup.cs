@@ -12,6 +12,7 @@ using StackExchange.Redis.Extensions.Core.Configuration;
 using StackExchange.Redis.Extensions.Newtonsoft;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using Appointment.Service.DependencyInjection;
 
 namespace AppointmentAPI
 {
@@ -32,6 +33,10 @@ namespace AppointmentAPI
             #endregion 
 
             services.AddControllers();
+
+            #region dependency injection
+            services.AddServiceExtension(Configuration);
+            #endregion
 
             #region redis 
 
