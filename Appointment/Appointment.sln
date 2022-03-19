@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appointment.UnitTesting", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointment.Grpc", "Appointment.Grpc\Appointment.Grpc.csproj", "{3D3A47B8-0C46-4830-A3B9-A80C8994A488}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointment.GrpcClient", "Appointment.GrpcClient\Appointment.GrpcClient.csproj", "{07448F5E-1EF5-4C04-9C65-7A245B8C0BAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{3D3A47B8-0C46-4830-A3B9-A80C8994A488}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D3A47B8-0C46-4830-A3B9-A80C8994A488}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D3A47B8-0C46-4830-A3B9-A80C8994A488}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07448F5E-1EF5-4C04-9C65-7A245B8C0BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07448F5E-1EF5-4C04-9C65-7A245B8C0BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07448F5E-1EF5-4C04-9C65-7A245B8C0BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07448F5E-1EF5-4C04-9C65-7A245B8C0BAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,7 +9,7 @@ using Type = System.Type;
 
 namespace Appointment.Grpc.Converters
 {
-    public class ToAppoinmentResponse : TypeConverter
+    public class ToAppointmentListResponse : TypeConverter
     {
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
