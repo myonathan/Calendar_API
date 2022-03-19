@@ -27,8 +27,8 @@ namespace Appointment.Grpc.Converters
                 Description = concreteValue.Description,
                 Location = concreteValue.Location,
                 Url = concreteValue.Url,
-                StartDate = concreteValue.StartDate.ToDateTime(),
-                EndDate = concreteValue.EndDate.ToDateTime()
+                StartDate = concreteValue.StartDate.ToDateTime().ToLocalTime(),
+                EndDate = concreteValue.EndDate.ToDateTime().ToLocalTime()
             };
         }
     }
