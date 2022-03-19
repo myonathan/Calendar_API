@@ -1,4 +1,5 @@
 ﻿using Appointment.Domain.Model;
+using AppointmentClient;
 using Google.Protobuf.WellKnownTypes;
 using Newtonsoft.Json;
 using System;
@@ -7,7 +8,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Type = System.Type;
 
-namespace Appointment.Grpc.Converters
+namespace Appointment.GrpcClient.Converters
 {
     public class ToAppointmentListResponse : TypeConverter
     {

@@ -1,4 +1,5 @@
 ﻿using Appointment.Domain.Model;
+using AppointmentClient;
 using Google.Protobuf.WellKnownTypes;
 using Newtonsoft.Json;
 using System;
@@ -7,32 +8,32 @@ using System.ComponentModel;
 using System.Globalization;
 using Type = System.Type;
 
-namespace Appointment.Grpc.Converters
+namespace Appointment.GrpcClient.Converters
 {
-    public class ToAppointmentListResponse : TypeConverter
+    public class ToAppointmentListModel : TypeConverter
     {
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
-            return destinationType == typeof(List<AppointmentResponse>);
+            return destinationType == typeof(List<AppointmentModel>);
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            var concreteValue = (List<AppointmentModel>)value;
+            var concreteValue = (List<AppointmentResponse>)value;
 
-            var result = new List<AppointmentResponse>();
+            var result = new List<AppointmentModel>();
 
             foreach (var val in concreteValue)
             {
-                result.Add(new AppointmentResponse
+                result.Add(new AppointmentModel
                 {
                     Id = val.Id,
                     Name = val.Name,
                     Description = val.Description,
                     Location = val.Location,
                     Url = val.Url,
-                    StartDate = val.StartDate.ToUniversalTime().ToTimestamp(),
-                    EndDate = val.EndDate.ToUniversalTime().ToTimestamp()
+                    StartDate = val.StartDate.ToDateTime().ToLocalTime(),
+                    EndDate = val.EndDate.ToDateTime().ToLocalTime()
                 });
             }
             return result;
