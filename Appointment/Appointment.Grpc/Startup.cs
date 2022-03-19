@@ -83,8 +83,8 @@ namespace Appointment.Grpc
             TypeDescriptor.AddAttributes(typeof(AppointmentModel), new TypeConverterAttribute(typeof(ToAppoinmentResponse)));
             TinyMapper.Bind<AppointmentModel, AppointmentResponse>();
 
-            //TypeDescriptor.AddAttributes(typeof(List<AppointmentModel>), new TypeConverterAttribute(typeof(ToAppointmentListResponse)));
-            //TinyMapper.Bind<List<AppointmentModel>, List<AppointmentResponse>>();
+            TypeDescriptor.AddAttributes(typeof(List<AppointmentModel>), new TypeConverterAttribute(typeof(ToAppointmentListResponse)));
+            TinyMapper.Bind<List<AppointmentModel>, List<AppointmentResponse>>();
 
             TypeDescriptor.AddAttributes(typeof(AppointmentRequest), new TypeConverterAttribute(typeof(ToAppointmentModel)));
             TinyMapper.Bind<AppointmentRequest, AppointmentModel>();
