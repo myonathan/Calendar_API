@@ -18,8 +18,11 @@ jobs:
       with:
         dotnet-version: 3.1.x
     - name: Restore dependencies
+      working-directory: ./Appointment
       run: dotnet restore
     - name: Build
+      working-directory: ./Appointment
       run: dotnet build --no-restore
     - name: Test
+      working-directory: ./Appointment
       run: dotnet test --no-build --verbosity normal
